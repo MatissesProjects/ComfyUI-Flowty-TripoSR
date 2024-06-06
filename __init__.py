@@ -104,6 +104,10 @@ class TripoSRViewer:
         return {
             "required": {
                 "mesh": ("MESH",)
+            },
+            "optional": {
+                "outputName": ("STRING", {"default": "meshsave"}),
+                "directory": ("STRING", {"default": get_output_directory()}),
             }
         }
 
@@ -112,10 +116,9 @@ class TripoSRViewer:
     FUNCTION = "display"
     CATEGORY = "Flowty TripoSR"
 
-    def display(self, mesh):
+    def display(self, mesh, outputName="meshsave", directory=get_output_directory()):
         saved = list()
-        full_output_folder, filename, counter, subfolder, filename_prefix = get_save_image_path("meshsave",
-                                                                                                get_output_directory())
+        full_output_folder, filename, counter, subfolder, filename_prefix = get_save_image_path(outputName, directory)
 
         for (batch_number, single_mesh) in enumerate(mesh):
             filename_with_batch_num = filename.replace("%batch_num%", str(batch_number))
